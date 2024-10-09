@@ -12,4 +12,4 @@ export default async function ArticlesPage() {
   return <ArticleTable data={articles} />;
 }
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';

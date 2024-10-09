@@ -23,6 +23,9 @@ export class User {
   })
   role: string;
 
+  @Prop()
+  bio: string;
+
   @Prop({ type: Array, default: [] })
   articlesPublished: string[];
 

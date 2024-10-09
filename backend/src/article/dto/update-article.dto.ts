@@ -1,4 +1,4 @@
-import { Analysis, Moderation } from './article.schema';
+import { Analysis, Moderation, Rating } from '../article.schema';
 
 export class UpdateArticleDto {
   title: string;
@@ -11,8 +11,9 @@ export class UpdateArticleDto {
   pagesEnd: number;
   doi: string;
   isPosted: boolean;
+  ratings: Rating[];
   createDate: Date;
   lastUpdateDate: Date;
-  moderationDetails: Moderation;
-  analysisDetails: Analysis;
+  moderation: Moderation;
+  analysis: Analysis;
 }

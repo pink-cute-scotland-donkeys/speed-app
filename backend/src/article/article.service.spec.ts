@@ -5,7 +5,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Model } from 'mongoose';
 import { Article } from './article.schema';
 import { ArticleService } from './article.service';
-import { CreateArticleDto } from './create-article.dto';
+import { CreateArticleDto } from './dto/create-article.dto';
 
 const mockArticleModel = {
   find: jest.fn(),

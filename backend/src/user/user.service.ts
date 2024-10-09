@@ -8,15 +8,15 @@ import { User, UserDocument } from './user.schema';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ email }).exec();
   }
 
-  async findById(id: string): Promise<User | null> {
+  async findById(id: string): Promise<UserDocument | null> {
     return this.userModel.findById(id).exec();
   }
 
-  async register(userDto: any): Promise<User> {
+  async register(userDto: any): Promise<UserDocument> {
     const { firstName, lastName, email, password, role } = userDto;
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await this.userModel.create({
@@ -29,7 +29,7 @@ export class UsersService {
     return newUser;
   }
 
-  async updateUser(id: string, updateDto: any): Promise<User | null> {
+  async updateUser(id: string, updateDto: any): Promise<UserDocument | null> {
     return this.userModel
       .findByIdAndUpdate(id, updateDto, { new: true })
       .exec();

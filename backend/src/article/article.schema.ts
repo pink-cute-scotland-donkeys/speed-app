@@ -1,25 +1,55 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { User } from 'src/user/user.schema';
+
+export class Rating {
+  @Prop()
+  ratedBy: User;
+
+  @Prop()
+  rating: number;
+
+  @Prop({ type: Date })
+  ratedDate: Date;
+}
 
 export class Moderation {
   @Prop()
-  moderatorId: string;
+  moderatedBy: User;
 
   @Prop()
   moderated: boolean;
 
   @Prop()
-  moderationPassed: boolean;
+  status: 'not moderated' | 'pending' | 'approved' | 'rejected';
+
+  @Prop()
+  comments: string;
+
+  @Prop({ type: Date })
+  moderatedDate: Date;
 }
 
 export class Analysis {
   @Prop()
-  analystId: string;
+  analysedBy: User;
 
   @Prop()
-  analyzed: boolean;
+  analysed: boolean;
 
   @Prop()
-  analyzePassed: boolean;
+  status: 'not analysed' | 'pending' | 'approved' | 'rejected';
+
+  @Prop()
+  summary: string;
+
+  @Prop()
+  keyFindings: string[];
+
+  @Prop()
+  methodology: string;
+
+  @Prop({ type: Date })
+  analysedDate: Date;
 }
 
 @Schema()
@@ -54,6 +84,9 @@ export class Article {
   @Prop()
   isPosted: boolean;
 
+  @Prop()
+  ratings: Rating[];
+
   @Prop({ type: Date })
   createDate: Date;
 
@@ -61,10 +94,10 @@ export class Article {
   lastUpdateDate: Date;
 
   @Prop()
-  moderationDetails: Moderation;
+  moderation: Moderation;
 
   @Prop()
-  analysisDetails: Analysis;
+  analysis: Analysis;
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article);

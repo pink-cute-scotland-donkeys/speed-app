@@ -8,3 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getDefinedValue(value: any, defaultValue: any) {
   return value !== undefined ? value : defaultValue;
 }
+
+export function capitalise(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

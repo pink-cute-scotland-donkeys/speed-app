@@ -4,6 +4,7 @@ export interface User {
   lastName: string;
   email: string;
   role: 'guest' | 'registered' | 'moderator' | 'analyst' | 'admin';
+  bio: string;
   articlesPublished: string[];
   articlesModerated: string[];
   articlesAnalysed: string[];

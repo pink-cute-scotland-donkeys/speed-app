@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Article } from './article.schema';
-import { CreateArticleDto } from './create-article.dto';
-import { UpdateArticleDto } from './update-article.dto';
+import { CreateArticleDto } from './dto/create-article.dto';
+import { UpdateArticleDto } from './dto/update-article.dto';
 
 @Injectable()
 export class ArticleService {
@@ -52,5 +52,4 @@ export class ArticleService {
       throw new BadRequestException('Failed to create new article. ' + error);
     }
   }
-  
 }

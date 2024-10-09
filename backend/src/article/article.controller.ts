@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ArticleService } from './article.service';
-import { CreateArticleDto } from './create-article.dto';
-import { UpdateArticleDto } from './update-article.dto';
+import { CreateArticleDto } from './dto/create-article.dto';
+import { UpdateArticleDto } from './dto/update-article.dto';
 
 @Controller()
 export class ArticleController {
@@ -12,7 +12,6 @@ export class ArticleController {
     return await this.articleService.getArticles();
   }
 
-  // GET /api/article/:id
   @Get('/article/:id')
   async getArticleById(@Param('id') id: string) {
     return await this.articleService.getArticleById(id);
