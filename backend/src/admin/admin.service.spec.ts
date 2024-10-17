@@ -3,6 +3,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Model } from 'mongoose';
 import { Article } from '../article/article.schema';
 import { AdminService } from './admin.service';
+import { ArticleService } from '../article/article.service';
+import { NotificationService } from '../notification/notification.service';
+import { AdminNotification } from '../notification/admin-notification.schema';
+import { UserNotification } from '../notification/user-notification.schema';
+
 
 const mockAdminController = {
   getAnalystQueue: jest.fn(),
@@ -11,22 +16,39 @@ const mockAdminController = {
 
 describe('AdminService', () => {
   let adminService: AdminService;
-
+  let articleService: ArticleService;
+  let notificationService: NotificationService;
   let articleModel: Model<Article>;
+  let adminNotificationModel: Model<AdminNotification>
+  let userNotificationModel: Model<UserNotification>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AdminService,
+        ArticleService,
+        NotificationService,
         {
           provide: getModelToken(Article.name),
           useValue: mockAdminController,
         },
+        {
+          provide: getModelToken(AdminNotification.name),
+          useValue: adminNotificationModel
+        },
+        {
+          provide: getModelToken(UserNotification.name),
+          useValue: userNotificationModel
+        }
       ],
     }).compile();
 
     adminService = module.get<AdminService>(AdminService);
+    articleService = module.get<ArticleService>(ArticleService);
+    notificationService = module.get<NotificationService>(NotificationService);
     articleModel = module.get<Model<Article>>(getModelToken(Article.name));
+    adminNotificationModel = module.get<Model<AdminNotification>>(getModelToken(AdminNotification.name));
+    userNotificationModel = module.get<Model<UserNotification>>(getModelToken(UserNotification.name));
   });
 
   it('should be defined', () => {

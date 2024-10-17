@@ -4,6 +4,7 @@ import { ArticleModule } from '../article/article.module';
 import { Article, ArticleSchema } from '../article/article.schema';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
+import { NotificationModule } from 'src/notification/notification.module';
 
 @Module({
   imports: [
@@ -14,9 +15,10 @@ import { AdminService } from './admin.service';
       },
     ]),
     ArticleModule,
+    NotificationModule,
   ],
   controllers: [AdminController],
   providers: [AdminService],
   exports: [AdminService],
 })
-export class AdminModule {}
+export class AdminModule { }

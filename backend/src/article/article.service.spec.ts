@@ -128,7 +128,7 @@ describe('ArticleService', () => {
         });
       const result = await service.createArticle('123', createArticleDto);
 
-      console.log(result);
+      // console.log(result);
       // expect(articleModel.create).toHaveBeenCalledWith("123", createArticleDto);
       expect(result).toEqual(mockArticle);
     });

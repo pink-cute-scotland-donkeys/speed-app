@@ -55,7 +55,7 @@ export class NotificationService {
     }
 
     async assignAdminNotification(uid: string, {notification_id}: UpdateUserNotificationDto): Promise<any> {
-        return await this.userNotiModel.findByIdAndUpdate({
+        return await this.adminNotiModel.findByIdAndUpdate({
                 _id: new mongoose.Types.ObjectId(notification_id),
                 user_id: uid
             },

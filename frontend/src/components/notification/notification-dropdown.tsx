@@ -91,7 +91,7 @@ const NotificationDropdown = ({user, token}: UserProps) => {
                             <h4 className="font-medium leading-none">Article Queue</h4>
                             {queueNotifications.length != 0 ? queueNotifications.map((notification, index) => (
                                 <div key={index}>
-                                    <NotificationItem notification={notification} />
+                                    <NotificationItem notification={notification} token={token}/>
                                 <Separator />
                             </div>
                             )): (
@@ -113,7 +113,7 @@ const NotificationDropdown = ({user, token}: UserProps) => {
                         <h4 className="font-medium leading-none">Notifications</h4>
                         {userNotifications.length != 0 ? userNotifications.map((notification, index) => (
                             <div key={index}>
-                                <NotificationItem notification={notification} />
+                                <NotificationItem notification={notification} token={token}/>
                             <Separator />
                          </div>
                         )): (

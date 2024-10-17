@@ -1,9 +1,8 @@
-import { User } from '../../user/user.schema';
-
 export class UpdateModerationDto {
-  moderatedBy: User;
+  moderatorId: String;
   moderated: boolean;
-  status: boolean;
+  moderation_passed: boolean;
+  status: string;
   comments: string;
   moderatedDate: Date;
 }

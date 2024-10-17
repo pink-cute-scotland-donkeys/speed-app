@@ -1,11 +1,11 @@
 import { User } from '../../user/user.schema';
 
 export class UpdateAnalysisDto {
-  analysedBy: User;
+  analystId: String;
   analysed: boolean;
-  status: boolean;
+  status: string;
   summary: string;
   keyFindings: string[];
   methodology: string;
-  analysedDate: Date;
+  analysisDate: Date;
 }

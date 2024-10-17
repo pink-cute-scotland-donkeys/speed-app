@@ -8,6 +8,8 @@ import { Article, Rating } from './article.schema';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { RatingDto } from './dto/rating.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { UpdateModerationDto } from './dto/update-moderation.dto';
+import { UpdateAnalysisDto } from './dto/update-analysis.dto';
 
 @Injectable()
 export class ArticleService {
@@ -42,6 +44,30 @@ export class ArticleService {
     }
   }
 
+  async moderateArticle(articleId: string, moderationDetails: UpdateModerationDto): Promise<Article> {
+    try {
+      moderationDetails.moderatedDate = new Date();
+      const updatedModerationDetails: UpdateModerationDto = moderationDetails;
+      const updatedArticle = await this.articleModel.findByIdAndUpdate(articleId, { $set: {"moderation": updatedModerationDetails }}, {new: true});
+
+      return updatedArticle;
+    } catch (error) {
+      throw new BadRequestException("Failed to update moderation details. " + error);
+    }
+  }
+
+  async analyseArticle(articleId: string, analysisDetails: UpdateAnalysisDto): Promise<Article> {
+    try {
+      analysisDetails.analysisDate = new Date();
+      const updatedAnalysisDetails: UpdateAnalysisDto = analysisDetails;
+      const updatedArticle = await this.articleModel.findByIdAndUpdate(articleId, { $set: {"analysis": updatedAnalysisDetails }}, {new: true});
+      
+      return updatedArticle;
+    } catch (error) {
+      throw new BadRequestException("Failed to update analysis details. " + error);
+    }
+  }
+
   async createArticle(
     uid: string = 'no user',
     createArticleDto: CreateArticleDto,
@@ -59,7 +85,7 @@ export class ArticleService {
           comments: ""
         },
         analysis: {
-          analyserId: "",
+          analystId: "",
           analysed: false,
           status: "not analysed",
           summary: "",
@@ -80,18 +106,9 @@ export class ArticleService {
         assigned: false,
         assignee_id: '',
       };
-      const temp2: CreateUserNotificationDto = {
-        user_id: uid,
-        article_id: createResult._id.toString(),
-        article_title: createResult.title,
-        title: 'Article Approved',
-        message: 'Your submitted article has been approved.',
-        read: false,
-      };
-
+    
       if (createResult) {
         await this.notificationService.sendNotification(adminNotification);
-        await this.notificationService.sendNotification(temp2);
       }
       return createResult;
     } catch (error) {
